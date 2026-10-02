@@ -59,6 +59,25 @@ need broader physical trials. The global shortcut, arbitrary-app scroll routing,
 recognition at difficult angles, CPU/battery impact, and ten-minute comfort are
 not established by synthetic checks. The native app is not notarized or sandboxed.
 
+## Native branding update, 2026-10-02
+
+The approved monochrome mark is now packaged as a multi-resolution ICNS app
+icon, a transparent template menu icon, and a visible panel-header image. Native
+controls use grayscale; fingertip markers have a white fill and dark outline.
+
+The native browser check passed, including loaded logo, full-width rectangular
+camera geometry, contrasting rendered fingertip markers, and the existing
+stroke/lifecycle regressions. The native build, signature verification, and
+self-tests passed; they also decode the ICNS and check that the menu mark has
+transparent background pixels and a visible glyph. The generated app and the
+previously installed copy had identical certificate-pinned designated requirements.
+
+For this requested app update, the installed copy was backed up and replaced at
+the same location. The launched panel visibly displayed the new logo and
+monochrome controls. No permissions were reset or camera capture/OS scrolling
+activated during verification. Real-camera comfort and saved permission reuse
+for this build remain untested.
+
 ## Reproduce
 
 ```sh

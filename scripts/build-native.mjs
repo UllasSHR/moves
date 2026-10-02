@@ -27,8 +27,19 @@ rmSync(contents+'/Resources/Web',{recursive:true,force:true});cpSync('dist',cont
 cpSync('THIRD_PARTY_NOTICES.md',contents+'/Resources/THIRD_PARTY_NOTICES.md');
 cpSync('licenses/Apache-2.0.txt',contents+'/Resources/Apache-2.0.txt');
 cpSync('LICENSE',contents+'/Resources/LICENSE.txt');
+// Package the approved mark at macOS's standard 1x/2x icon sizes. Keep generated
+// iconsets outside source control; the transparent mark is also a menu template.
+const iconset=resolve('native/.build/Moves.iconset');
+mkdirSync(iconset,{recursive:true});
+for(const size of [16,32,128,256,512])for(const scale of [1,2]){
+ const pixels=size*scale;
+ execFileSync('sips',['-z',String(pixels),String(pixels),'docs/assets/moves-logo.png','--out',`${iconset}/icon_${size}x${size}${scale===2?'@2x':''}.png`],{stdio:'ignore'});
+}
+execFileSync('iconutil',['-c','icns',iconset,'-o',contents+'/Resources/MovesIcon.icns'],{stdio:'inherit'});
+cpSync('public/brand/moves-mark.png',contents+'/Resources/MovesMenu.png');
 writeFileSync(contents+'/Info.plist',`<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict>
 <key>CFBundleExecutable</key><string>Moves</string><key>CFBundleIdentifier</key><string>com.ullas.moves.local</string><key>CFBundleName</key><string>Moves</string><key>CFBundleDisplayName</key><string>Moves</string><key>CFBundlePackageType</key><string>APPL</string><key>CFBundleVersion</key><string>1</string><key>CFBundleShortVersionString</key><string>0.2.0</string><key>LSMinimumSystemVersion</key><string>14.0</string><key>LSUIElement</key><true/>
+<key>CFBundleIconFile</key><string>MovesIcon</string>
 <key>NSCameraUsageDescription</key><string>Moves tracks your four fingertips on this Mac to scroll the pane under your pointer. No video is recorded or uploaded.</string>
 <key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
 </dict></plist>`);

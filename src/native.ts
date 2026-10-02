@@ -26,7 +26,7 @@ previewToggle.addEventListener('click',()=>{
 // Layout changes never stop tracking. Fit errors as well as normal status.
 new ResizeObserver(()=>post({type:'size',height:Math.ceil(document.querySelector('main')!.getBoundingClientRect().height+20)})).observe(document.querySelector('main')!);
 function status(state:string,message:string){$('state').textContent=state;$('message').textContent=message;$('message').hidden=state==='Off'||state==='Ready';post({type:'status',state,message});}
-function draw(points:Point[]|null){ctx.clearRect(0,0,320,240);$('camera-preview').dataset.tracking=points?'hand':stream?'waiting':'off';if(!points)return;ctx.fillStyle='#ffe08b';ctx.strokeStyle='#171c17';ctx.lineWidth=3;for(const i of TIPS){const p=points[i];if(!p||!Number.isFinite(p.x+p.y))continue;ctx.beginPath();ctx.arc(p.x*320,p.y*240,8,0,Math.PI*2);ctx.fill();ctx.stroke();}}
+function draw(points:Point[]|null){ctx.clearRect(0,0,320,240);$('camera-preview').dataset.tracking=points?'hand':stream?'waiting':'off';if(!points)return;ctx.fillStyle='#ffffff';ctx.strokeStyle='#171717';ctx.lineWidth=3;for(const i of TIPS){const p=points[i];if(!p||!Number.isFinite(p.x+p.y))continue;ctx.beginPath();ctx.arc(p.x*320,p.y*240,8,0,Math.PI*2);ctx.fill();ctx.stroke();}}
 function stop(){session++;clearTimeout(timer);cancelLoading?.();cancelLoading=null;worker?.terminate();worker=null;stream?.getTracks().forEach(t=>t.stop());stream=null;video.srcObject=null;busy=false;lastFrame=-1;lastResult=0;gesture.reset();draw(null);$('camera').textContent='CAMERA OFF';status('Off','Control–Option–M turns gesture scrolling on or off.');}
 async function makeWorker(token:number){
  const current=new Worker('/tracker.js');worker=current;

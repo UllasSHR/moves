@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 import CoreGraphics
 import Network
 
@@ -27,6 +28,16 @@ private func checkRawHTTP(port: UInt16, request: String, code: Int) {
 }
 
 func runSelfTests() {
+    let resources = Bundle.main.resourceURL!
+    precondition(Bundle.main.object(forInfoDictionaryKey: "CFBundleIconFile") as? String == "MovesIcon")
+    precondition(NSImage(contentsOf: resources.appendingPathComponent("MovesIcon.icns"))?.isValid == true)
+    let mark = NSBitmapImageRep(data: try! Data(contentsOf: resources.appendingPathComponent("MovesMenu.png")))!
+    precondition(mark.hasAlpha && mark.colorAt(x: 0, y: 0)!.alphaComponent < 0.01)
+    let visible = stride(from: 0, to: mark.pixelsHigh, by: 16).contains { y in
+        stride(from: 0, to: mark.pixelsWide, by: 16).contains { x in mark.colorAt(x: x, y: y)!.alphaComponent > 0.9 }
+    }
+    precondition(visible, "Menu template must contain a visible glyph")
+    print("PASS native icon bundle: declared ICNS decodes; menu template has transparency and a visible glyph.")
     var output = ScrollOutput()
     let point = CGPoint(x: 20, y: 30)
     let up = output.event(x: 0, y: 9, location: point)!
@@ -52,6 +63,7 @@ func runSelfTests() {
         let cases: [(String, Int, String, String?, String?)] = [
             ("/native.html",200,"GET",nil,nil),
             ("/native.html",200,"HEAD",nil,nil),
+            ("/brand/moves-mark.png",200,"GET",nil,nil),
             ("/models/hand_landmarker.task",200,"GET",nil,nil),
             ("/wasm/vision_wasm_internal.wasm",200,"GET",nil,nil),
             ("/missing",404,"GET",nil,nil),

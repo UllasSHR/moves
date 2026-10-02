@@ -10,6 +10,8 @@ await page.addInitScript(()=>{
 });
 await page.goto('http://127.0.0.1:5173/native.html');
 await page.waitForFunction(()=>!!window.movesNative);
+await page.waitForFunction(()=>{const img=document.querySelector('.brand img');return img?.complete&&img.naturalWidth>0;});
+assert.equal(await page.getByRole('img',{name:'Moves logo',exact:true}).isVisible(),true);
 await page.setViewportSize({width:264,height:520});
 assert.equal(await page.locator('#diagnostics').isVisible(),false);
 assert.equal(await page.locator('#camera-preview').isVisible(),true);
@@ -35,7 +37,13 @@ await page.getByRole('button',{name:'Hide details',exact:true}).click();
 assert.ok(await page.locator('video').evaluate(el=>el.srcObject.getTracks().every(t=>t.readyState==='live')));
 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
 async function pose(y,x=0){const next=await page.evaluate(({y,x})=>{window.testPoints=y===null?null:window.testHand(y,x);window.messages=[];return window.processed+2;},{y,x});await page.waitForFunction(n=>window.processed>=n,next);return page.evaluate(()=>window.messages.filter(m=>m.type==='motion'));}
-await pose(0);let result=await pose(-.02,.03);assert.ok(result.some(m=>m.y>0));assert.ok(result.every(m=>m.x===0));
+await pose(0);
+assert.ok(await page.locator('#overlay').evaluate(canvas=>{
+ const ctx=canvas.getContext('2d'),p=window.testPoints[8],x=Math.round(p.x*320),y=Math.round(p.y*240);
+ const center=ctx.getImageData(x,y,1,1).data,outline=ctx.getImageData(x+8,y,1,1).data;
+ return center[3]>240&&outline[3]>240&&Math.abs(center[0]-outline[0])>180;
+}),'Fingertip markers need contrasting opaque fill and outline on the camera feed');
+let result=await pose(-.02,.03);assert.ok(result.some(m=>m.y>0));assert.ok(result.every(m=>m.x===0));
 result=await pose(.02,.06);assert.ok(result.every(m=>m.y===0&&m.x===0));
 result=await pose(.02,.06);assert.ok(result.every(m=>m.x===0&&m.y===0));
 // Exercise the native page's automatic direction and tracking bridge, not just

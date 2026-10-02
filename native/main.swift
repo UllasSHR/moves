@@ -72,6 +72,12 @@ final class MovesApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScrip
         if let frame = NSScreen.main?.visibleFrame { panel.setFrameOrigin(NSPoint(x: frame.maxX - panel.frame.width - 20, y: frame.minY + 20)) }
         panel.orderFrontRegardless()
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        if let url = Bundle.main.url(forResource: "MovesMenu", withExtension: "png"), let icon = NSImage(contentsOf: url) {
+            icon.size = NSSize(width: 22, height: 22)
+            icon.isTemplate = true
+            statusItem.button?.image = icon
+            statusItem.button?.imagePosition = .imageLeading
+        }
         statusItem.button?.title = "Moves ○"
         let menu = NSMenu()
         toggleItem = add("Enable gesture scrolling  ⌃⌥M", action: #selector(toggle), to: menu)

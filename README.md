@@ -40,7 +40,7 @@ without granting system-control permission. Moves is independently built
 2. Put your pointer over the pane you want to read.
 3. Press **Control–Option–M**, click **Start scrolling**, or use the menu-bar
    toggle. On first use, approve Camera and scroll-control access.
-4. Bring one hand into view. Use the four yellow fingertip dots as feedback.
+4. Bring one hand into view. Use the four fingertip dots as feedback.
 5. Move your fingertips upward: the content moves upward, revealing later lines.
    Return downward and repeat; that return is ignored.
 6. To reverse, finish returning, hold still for **½ second** until the panel says
@@ -111,6 +111,8 @@ The build targets macOS 14 and the build machine's architecture; macOS 14 runtim
 compatibility and Intel hardware are not verified. It is not a universal binary.
 The generated app bundles its UI, worker, WASM, model, and third-party notices;
 Node and Vite are not needed while the built app runs.
+It includes the monochrome Moves logo in its app icon, menu bar, and panel header.
+Moves runs as a menu-bar app, so it does not keep a normal Dock icon.
 
 The staging copy is temporary. For a persistent installation, quit Moves, copy
 `/private/tmp/moves-native/Moves.app` to `~/Applications/Moves.app` in Finder, and
