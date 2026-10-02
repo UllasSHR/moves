@@ -12,8 +12,7 @@ and sends ordinary scroll events to the pane under your pointer. No special
 hardware, cloud inference, or account is required to use it.
 
 The project also includes a browser reading lab for trying the gesture controller
-without granting system-control permission. Moves is independently built; it is
-not affiliated with OpenAI, Codex, Apple, or Wispr.
+without granting system-control permission. Moves is independently built
 
 > **Status:** source prototype, tested locally on an Apple Silicon Mac running
 > macOS 27. It is not a notarized, ready-to-install release. Other Macs, macOS
