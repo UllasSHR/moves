@@ -1,3 +1,7 @@
+<p>
+  <img src="docs/assets/moves-logo.png" alt="Moves logo: four curved fingertip strokes" width="128" height="128">
+</p>
+
 # Moves
 
 **Scroll with your fingers. Keep your attention on what you’re reading.**
