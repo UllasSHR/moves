@@ -1,0 +1,30 @@
+{
+  "name": "moves-local",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "assets": "node scripts/assets.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "test:native-browser": "node scripts/native-browser-check.mjs",
+    "build:native": "node scripts/build-native.mjs",
+    "check:native-signing": "node scripts/build-native.mjs --check-signing",
+    "test:native-signing": "node scripts/check-native-signing.mjs",
+    "build:native:adhoc": "node scripts/build-native.mjs --adhoc",
+    "predev": "node scripts/build-worker.mjs",
+    "prebuild": "node scripts/build-worker.mjs"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "0.10.32"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "tsx": "^4.21.0",
+    "@playwright/test": "^1.58.2",
+    "esbuild": "0.28.2"
+  }
+}

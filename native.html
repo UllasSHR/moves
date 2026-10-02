@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Moves</title></head>
+<body><main>
+<header><strong>Moves</strong><span id="state">Off</span></header>
+<div class="camera-workspace">
+<div class="preview" id="camera-preview" data-tracking="off" aria-label="Live camera with four fingertip markers"><div class="feed"><video id="video" autoplay muted playsinline></video><canvas id="overlay" width="320" height="240"></canvas></div><span id="camera">CAMERA OFF</span></div>
+<div class="controls"><button id="toggle" type="button">Start scrolling</button><button id="preview-toggle" type="button" aria-expanded="false" aria-controls="diagnostics">Details</button></div>
+</div>
+<p id="message" hidden>Control–Option–M turns gesture scrolling on or off.</p>
+<div class="hint">Pause ½s to switch · ⌃⌥M toggles</div>
+<section id="diagnostics" hidden aria-label="Camera preview and tracking details">
+<p class="subtle">Repeat your stroke; the return is ignored. Finish returning, pause ½ second, then move the other way to reverse.</p>
+<p class="subtle" id="axes">Automatic strokes · pause ½ second to switch. Sideways is off.</p>
+<p class="subtle" id="timing">Put your pointer over the pane you want to read.</p>
+<footer>Four fingertips · on-device · no recording</footer>
+</section>
+</main><script type="module" src="/src/native.ts"></script></body></html>

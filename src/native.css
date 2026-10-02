@@ -1,0 +1,9 @@
+:root{font:11px -apple-system,BlinkMacSystemFont,sans-serif;color:#e6ebdf;background:#171c17;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;padding:8px}header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}strong{font-size:14px}#state{color:#c4e8a8;font-size:11px;text-align:right}
+.camera-workspace{display:flex;flex-direction:column;gap:6px}.controls{display:flex;gap:6px}button{padding:5px 8px;border:1px solid #708d58;border-radius:6px;font:inherit;font-weight:600;cursor:pointer}#toggle{flex:1;background:#c4e8a8;color:#171c17}#preview-toggle{background:transparent;color:#b8c7ac}
+p{line-height:1.4;margin:8px 0}#message{overflow-wrap:anywhere}.hint{margin-top:6px;color:#a6b69a;font-size:10px}[hidden]{display:none!important}
+.preview{position:relative;width:100%;aspect-ratio:4/3;border-radius:6px;background:#080c08;overflow:hidden}.preview[data-tracking=hand]{outline:1px solid #bfee9570}.preview[data-tracking=waiting]{outline:1px solid #dfbc7370}
+/* The whole camera frame and landmarks occupy the same rectangle, with no
+   round crop, letterboxing, duplicated stream, or asymmetric transforms. */
+.feed{position:absolute;inset:0;width:100%;height:100%}.feed video,.feed canvas{position:absolute;width:100%;height:100%;object-fit:fill;transform:scaleX(-1)}#camera{position:absolute;top:5px;left:5px;font-size:8px;color:#d6eec5;background:#080c08b0;border-radius:3px;padding:3px 4px;pointer-events:none}
+#diagnostics{margin-top:8px;border-top:1px solid #35402f}.subtle{font-size:10px;color:#b0baaa}footer{font-size:9px;color:#8f9c88;padding-top:6px}

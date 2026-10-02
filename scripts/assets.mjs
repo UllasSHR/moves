@@ -1,0 +1,10 @@
+import { cp, mkdir, writeFile, rename } from 'node:fs/promises';
+import {MODEL_URL,verifyModel} from './model-integrity.mjs';
+await mkdir('public/models', {recursive:true});
+await cp('node_modules/@mediapipe/tasks-vision/wasm','public/wasm',{recursive:true});
+const response=await fetch(MODEL_URL,{signal:AbortSignal.timeout(60000)});
+if(!response.ok) throw new Error(`Model download: ${response.status}`);
+const bytes=new Uint8Array(await response.arrayBuffer());verifyModel(bytes);
+await writeFile('public/models/hand_landmarker.task.download',bytes);
+await rename('public/models/hand_landmarker.task.download','public/models/hand_landmarker.task');
+console.log('Runtime and checksum-verified model ready locally. Source:',MODEL_URL);
